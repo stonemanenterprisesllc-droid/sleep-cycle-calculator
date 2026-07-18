@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://stonemanenterprisesllc-droid.github.io/sleep-cycle-calculator/sitemap.xml

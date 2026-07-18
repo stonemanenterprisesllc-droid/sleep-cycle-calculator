@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sleep Calculator — What Time Should I Go to Bed or Wake Up?</title>
+<meta name="description" content="Free sleep cycle calculator. Enter your wake-up time to see the best bedtimes, or click Sleep Now to see the best wake-up times, based on 90-minute sleep cycles.">
+<link rel="canonical" href="https://stonemanenterprisesllc-droid.github.io/sleep-cycle-calculator/">
+<style>
+:root{--accent:#2563eb;--accent-dark:#1e40af}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6;color:#1f2937;background:#f8fafc}
+header{background:var(--accent);color:#fff;padding:1rem}
+header .wrap{max-width:760px;margin:0 auto}
+header a{color:#fff;text-decoration:none;font-weight:700;font-size:1.2rem}
+main{max-width:760px;margin:0 auto;padding:1rem}
+h1{font-size:1.5rem;margin:.75rem 0 .25rem}
+.tagline{color:#6b7280;margin-bottom:1rem}
+.tool{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.modes{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.mode{flex:1;min-width:200px;border:2px solid #d1d5db;background:#fff;border-radius:10px;padding:.7rem;cursor:pointer;font-size:1rem;font-weight:600;color:#374151}
+.mode.active{border-color:var(--accent);color:var(--accent);background:#eff6ff}
+label{font-weight:600;display:block;margin:.5rem 0 .25rem}
+input[type=time]{padding:.6rem;border:2px solid #d1d5db;border-radius:8px;font-size:1.3rem;font-family:inherit}
+.btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:.7rem 1.6rem;font-size:1.05rem;font-weight:700;cursor:pointer;margin-left:.75rem;vertical-align:bottom}
+.btn:hover{background:var(--accent-dark)}
+details.opts{margin:.75rem 0 0}
+details.opts summary{cursor:pointer;color:var(--accent);font-weight:600}
+details.opts label{display:inline-block;margin-right:1rem;font-weight:400}
+details.opts input{width:4rem;padding:.3rem;border:1px solid #d1d5db;border-radius:6px}
+#results{display:none;margin-top:1.25rem}
+#results p.lead{font-weight:600}
+.times{display:flex;flex-wrap:wrap;gap:.6rem;margin:.75rem 0}
+.time-card{border:2px solid #e5e7eb;border-radius:10px;padding:.6rem 1rem;text-align:center;min-width:110px}
+.time-card .t{font-size:1.35rem;font-weight:700;color:var(--accent)}
+.time-card .c{font-size:.8rem;color:#6b7280}
+.time-card.best{border-color:#16a34a;background:#f0fdf4}
+.time-card.best .c{color:#16a34a;font-weight:700}
+.note{font-size:.9rem;color:#6b7280}
+.ad-slot{margin:1rem 0}
+article h2{margin:1.5rem 0 .5rem;font-size:1.2rem}
+article p,article li{margin:.5rem 0}
+article ul{padding-left:1.4rem}
+footer{max-width:760px;margin:2rem auto;padding:1rem;font-size:.85rem;color:#6b7280;border-top:1px solid #e5e7eb}
+footer a{color:#6b7280;margin-right:1rem}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="./">Sleep Cycle Calculator</a></div></header>
+<main>
+<h1>Sleep Calculator: Best Times to Go to Bed and Wake Up</h1>
+<p class="tagline">Wake up between 90-minute sleep cycles — not in the middle of one — and mornings feel completely different.</p>
+
+<div class="tool">
+<div class="modes">
+<button class="mode active" id="modeWake">⏰ I want to wake up at…</button>
+<button class="mode" id="modeNow">🛏 I'm going to sleep now</button>
+</div>
+<div id="wakeInput">
+<label for="wakeTime">Wake-up time</label>
+<input type="time" id="wakeTime" value="06:30">
+<button class="btn" id="calc">Calculate</button>
+</div>
+<details class="opts">
+<summary>Options</summary>
+<div style="margin-top:.5rem">
+<label>Minutes to fall asleep <input type="number" id="latency" value="15" min="0" max="60"></label>
+<label>Cycle length (min) <input type="number" id="cycleLen" value="90" min="70" max="120"></label>
+</div>
+</details>
+<div id="results" aria-live="polite">
+<p class="lead" id="lead"></p>
+<div class="times" id="times"></div>
+<p class="note" id="note"></p>
+</div>
+</div>
+
+<div class="ad-slot" data-ad="top"></div>
+
+<article>
+<h2>How this sleep calculator works</h2>
+<p>Sleep isn't one long block — it runs in cycles of roughly <strong>90 minutes</strong>, each
+moving through light sleep, deep sleep, and REM. Waking at the <em>end</em> of a cycle, when
+you're naturally in light sleep, feels easy. Waking in the <em>middle</em> of deep sleep is
+what causes that heavy, groggy, "hit by a truck" feeling — even after plenty of hours.</p>
+<p>This calculator counts backward (or forward) in 90-minute cycles and adds the average
+<strong>15 minutes it takes to fall asleep</strong>, then shows you the bedtimes or wake-up
+times that land between cycles. The green option is the sweet spot for most adults:
+<strong>5–6 full cycles (7.5–9 hours)</strong>.</p>
+<h2>How much sleep do I need?</h2>
+<ul>
+<li><strong>Adults (18–64):</strong> 7–9 hours — 5 to 6 cycles.</li>
+<li><strong>Teens (14–17):</strong> 8–10 hours — 5 to 7 cycles.</li>
+<li><strong>School-age kids (6–13):</strong> 9–11 hours — 6 to 7 cycles.</li>
+<li><strong>Older adults (65+):</strong> 7–8 hours — 4 to 5 cycles.</li>
+</ul>
+<h2>Tips for falling asleep faster</h2>
+<p>The 15-minute default assumes typical sleep latency. If you routinely take longer, raise
+the number in Options — and try these: keep the bedroom cool (65–68°F / 18–20°C), stop
+caffeine 8+ hours before bed (our <a href="https://stonemanenterprisesllc-droid.github.io/caffeine-calculator/">Caffeine
+Half-Life Calculator</a> shows exactly how much is still in your system at bedtime), dim
+screens an hour before sleep, and keep the same wake-up time every day — even weekends.
+A consistent wake time is the single strongest lever for better sleep.</p>
+<h2>Is 6 hours of sleep enough?</h2>
+<p>Four complete cycles (6 hours) is the minimum that still respects cycle boundaries — you
+may feel alert after it, but it's below the 7-hour floor most adults need long-term. Use it
+for a crunch night, not a lifestyle. This tool is for general wellness information and isn't
+medical advice; talk to a doctor about persistent sleep problems.</p>
+</article>
+
+<div class="ad-slot" data-ad="bottom"></div>
+</main>
+
+<footer>
+<p><a href="./">Home</a> <a href="about.html">About</a> <a href="privacy.html">Privacy Policy</a> <a href="terms.html">Terms of Use</a></p>
+<p>&copy; 2026 Sleep Cycle Calculator. All rights reserved.</p>
+<p>More free tools:
+<a href="https://stonemanenterprisesllc-droid.github.io/word-scramble-maker/">Word Scramble Maker</a>
+<a href="https://stonemanenterprisesllc-droid.github.io/caffeine-calculator/">Caffeine Half-Life Calculator</a>
+<a href="https://stonemanenterprisesllc-droid.github.io/random-phone-number-generator/">Random Phone Number Generator</a>
+<a href="https://stonemanenterprisesllc-droid.github.io/dragonborn-name-generator/">Dragonborn Name Generator</a></p>
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+let mode='wake';
+function fmt(d){let h=d.getHours(),m=d.getMinutes(),am=h<12?'AM':'PM';h=h%12||12;return h+':'+String(m).padStart(2,'0')+' '+am;}
+function calc(){
+ const latency=+$('latency').value||15, cyc=+$('cycleLen').value||90;
+ const cards=[];
+ if(mode==='wake'){
+  const [h,m]=$('wakeTime').value.split(':').map(Number);
+  const wake=new Date();wake.setHours(h,m,0,0);
+  $('lead').textContent='To wake refreshed at '+fmt(wake)+', go to bed at one of these times:';
+  for(let n=6;n>=3;n--){
+   const bed=new Date(wake.getTime()-(n*cyc+latency)*60000);
+   cards.push({t:fmt(bed),c:n+' cycles · '+(n*cyc/60).toFixed(1).replace('.0','')+' hrs',best:n===5||n===6});
+  }
+  $('note').textContent='Times include '+latency+' minutes to fall asleep. Green = recommended for most adults.';
+ }else{
+  const now=new Date();
+  $('lead').textContent='If you fall asleep soon (about '+latency+' min), set your alarm for:';
+  for(let n=3;n<=6;n++){
+   const up=new Date(now.getTime()+(n*cyc+latency)*60000);
+   cards.push({t:fmt(up),c:n+' cycles · '+(n*cyc/60).toFixed(1).replace('.0','')+' hrs',best:n===5||n===6});
+  }
+  $('note').textContent='Calculated from right now ('+fmt(now)+'). Green = recommended for most adults.';
+ }
+ $('times').innerHTML=cards.map(c=>`<div class="time-card${c.best?' best':''}"><div class="t">${c.t}</div><div class="c">${c.c}</div></div>`).join('');
+ $('results').style.display='block';
+}
+$('modeWake').addEventListener('click',()=>{mode='wake';$('modeWake').classList.add('active');$('modeNow').classList.remove('active');$('wakeInput').style.display='block';calc();});
+$('modeNow').addEventListener('click',()=>{mode='now';$('modeNow').classList.add('active');$('modeWake').classList.remove('active');$('wakeInput').style.display='none';calc();});
+$('calc').addEventListener('click',calc);
+calc();
+</script>
+</body>
+</html>
